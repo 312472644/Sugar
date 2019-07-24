@@ -34,18 +34,19 @@ const router = new Router({
   ]
 });
 
-router.beforeEach((to, from, next) => {
-  const token: boolean = JSON.parse(sessionStorage.getItem('token') as string);
-  // 带标记需要验证
-  if (to.meta.isRequire) {
-    if (token) {
-      next();
-    } else {
-      next('/login');
-    }
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   next();
+//   const token: boolean = JSON.parse(sessionStorage.getItem('token') as string);
+//   // 带标记需要验证
+//   if (to.meta.isRequire) {
+//     if (token) {
+//       next();
+//     } else {
+//       next('/sugar/login');
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

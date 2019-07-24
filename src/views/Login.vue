@@ -31,9 +31,8 @@ import {
   Model
 } from 'vue-property-decorator';
 
-@Component
+@Component({})
 export default class Login extends Vue {
-  private $router!: any;
   private loginPage(): void {
     sessionStorage.setItem('token', 'true');
     this.$router.push({
