@@ -3,7 +3,7 @@
     ts test
     <span>
       <p>{{user}}</p>
-      <input type="text" v-model="dataParam.userName" @input="change">
+      <input type="text" v-model="dataParam.userName" @input="change" />
       {{dataParam.userName}}
     </span>
     <p>watch的方法</p>
@@ -26,6 +26,7 @@ import {
 } from 'vue-property-decorator';
 import User from '../imp/User';
 import mixins from '../mixins/mixins';
+import common from '../utils/common';
 import { State, Mutation, Action, Getter } from 'vuex-class';
 
 @Component({
@@ -33,7 +34,7 @@ import { State, Mutation, Action, Getter } from 'vuex-class';
 })
 export default class Test extends Vue {
   // Getter的使用
-   @Getter('userNameResult') private gettersName: any;
+  @Getter('userNameResult') private gettersName: any;
   // vuex的使用
   @State(state => state.user.userName)
   private vuexName?: string;
@@ -60,6 +61,7 @@ export default class Test extends Vue {
   }
   // 生命周期
   private created() {
+    common.getCurrDate('2019/7/13');
     this.createUser();
   }
   // Mutation方法的调用

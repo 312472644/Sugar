@@ -1,0 +1,54 @@
+.sugar-input {
+  box-sizing: border-box;
+  outline: none;
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  line-height: 1.5;
+  padding: 4px 7px;
+  font-size: 12px;
+  border: 1px solid #dcdee2;
+  border-radius: 4px;
+  color: #515a6e;
+  background-color: #fff;
+  background-image: none;
+  position: relative;
+  cursor: text;
+  transition: border 0.2s ease-in-out, background 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  &:focus {
+    border-color: #57a3f3;
+  }
+}
+
+.sugar-button {
+  outline: none;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  user-select: none;
+  padding: 5px 15px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  transition: color 0.2s linear, background-color 0.2s linear,
+    border 0.2s linear, box-shadow 0.2s linear;
+  color: #515a6e;
+  background-color: #fff;
+  border-color: #dcdee2;
+}
+
+.sugar-btn-primary {
+  color: #fff;
+  background-color: #2d8cf0;
+  border-color: #2d8cf0;
+  &:hover {
+    background-color: #57a3f3;
+    border-color: #57a3f3;
+  }
+}
