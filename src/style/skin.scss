@@ -1,0 +1,46 @@
+@mixin skin($bgColor) {
+  width: auto;
+  height: 50px;
+  background: $bgColor;
+}
+.skin-gray {
+  @include skin(#ececec);
+}
+
+.skin-black {
+  @include skin(#212121);
+}
+
+.skin-green {
+  @include skin(#00beac);
+}
+
+.skin-orange {
+  @include skin(#ff9800);
+}
+
+.skin-red {
+  @include skin(#f45e63);
+}
+
+.skin-blue {
+  @include skin(#00bcd4);
+}
+
+.skin-sun {
+  width: auto;
+  height: 50px;
+  background: linear-gradient(to bottom right, #ff6f2c, #ff4253, #ff0888);
+}
+
+.skin-paris {
+  width: auto;
+  height: 50px;
+  background: linear-gradient(to bottom right, #3d94ff, #7f5eff, #d11cff);
+}
+
+.skin-cherry {
+  width: auto;
+  height: 50px;
+  background: linear-gradient(to bottom right, #00b0f3, #00cdb3, #00e879);
+}

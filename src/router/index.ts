@@ -7,8 +7,8 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/sugar',
-      redirect: '/login'
+      path: '/',
+      redirect: baseName.concat('/login')
     },
     {
       path: baseName.concat('/login'),
