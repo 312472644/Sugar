@@ -9,11 +9,7 @@
           <span class="skin" @click.stop="colorPick.dialog = !colorPick.dialog">
             <div class="skin-box" v-show="colorPick.dialog">
               <ul class="clear">
-                <li
-                  @click="colorPick.currColor = item.class"
-                  v-for="(item,index) in colors"
-                  :key="index"
-                >
+                <li @click="saveSkin(item.class)" v-for="(item,index) in colors" :key="index">
                   <span :class="item.class"></span>
                   <span style="padding-top:5px">{{item.text}}</span>
                 </li>
@@ -23,7 +19,18 @@
           <span class="close"></span>
         </div>
         <user-info :info="qqInfo"></user-info>
+        <div class="sugar-qq-search">
+          <sugar-input v-model="searchValue"></sugar-input>
+        </div>
       </div>
+      <sugar-tab v-if="!hasShowResult" value="contacts">
+        <sugar-tab-panel label="联系人" name="contacts">
+          <SugarCollapse :data="friends"></SugarCollapse>
+        </sugar-tab-panel>
+        <sugar-tab-panel label="空间" name="zone">空间</sugar-tab-panel>
+        <sugar-tab-panel label="消息" name="message">消息</sugar-tab-panel>
+      </sugar-tab>
+      <SugarSearch v-else></SugarSearch>
     </div>
     <!-- <router-link to="/sugar/user">to user</router-link>
     <router-view></router-view>-->
@@ -31,13 +38,26 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 import mixins from '../mixins/mixins';
 import UserInfo from '../components/UserInfo.vue';
+import SugarInput from '../components/SugarInput.vue';
+import SugarTab from '../components/SugarTab.vue';
+import SugarTabPanel from '../components/SugarTabPanel.vue';
+import SugarCollapse from '../components/SugarCollapse.vue';
+import SugarPanel from '../components/SugarPanel.vue';
+import SugarSearch from '../components/SugarSearch.vue';
+
 @Component({
   mixins: [mixins],
   components: {
-    UserInfo
+    UserInfo,
+    SugarInput,
+    SugarTab,
+    SugarTabPanel,
+    SugarCollapse,
+    SugarPanel,
+    SugarSearch
   }
 })
 export default class Index extends Vue {
@@ -46,8 +66,12 @@ export default class Index extends Vue {
     desc: '大梦谁先觉，平生我自知'
   };
 
+  // 是否展示搜索结果
+  private hasShowResult: boolean = false;
+  // 搜索值
+  private searchValue: string | null = null;
   private colorPick = {
-    currColor: 'skin-gray',
+    currColor: sessionStorage.getItem('skin') || 'skin-sun',
     dialog: false
   };
   // 颜色集合
@@ -90,6 +114,53 @@ export default class Index extends Vue {
     }
   ];
 
+  private friends = [
+    {
+      groupName: '分组一',
+      friends: [
+        {
+          name: '张三'
+        },
+        {
+          name: '李四'
+        }
+      ]
+    },
+    {
+      groupName: '分组二',
+      friends: [
+        {
+          name: '张三'
+        },
+        {
+          name: '李四'
+        }
+      ]
+    },
+    {
+      groupName: '分组三',
+      friends: [
+        {
+          name: '张三'
+        },
+        {
+          name: '李四'
+        }
+      ]
+    },
+    {
+      groupName: '分组四',
+      friends: [
+        {
+          name: '张三'
+        },
+        {
+          name: '李四'
+        }
+      ]
+    }
+  ];
+
   private getResult(): void {
     this.axios.get('http://localhost:10001/user.js').then((res: any) => {
       console.log('result', res);
@@ -98,6 +169,17 @@ export default class Index extends Vue {
 
   private created(): void {
     this.getResult();
+  }
+
+  // 保存皮肤
+  private saveSkin(className: string) {
+    this.colorPick.currColor = className;
+    sessionStorage.setItem('skin', className);
+  }
+
+  @Watch('searchValue')
+  private showResult(val: string) {
+    this.hasShowResult = val ? true : false;
   }
 }
 </script>
@@ -171,11 +253,19 @@ export default class Index extends Vue {
       }
     }
   }
+
+  .sugar-qq-search {
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    right: 0;
+    left: 0;
+  }
   .sugar-qq-info {
-    // background: url('../assets/main.png');
     height: 140px !important;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+    position: relative;
   }
 }
 </style>

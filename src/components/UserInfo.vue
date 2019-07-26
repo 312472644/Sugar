@@ -87,7 +87,7 @@ export default class UserInfo extends Vue {
 
 <style lang='scss'>
 .sugar-info {
-  margin-top: 15px;
+  margin-top: 5px;
   height: 60px;
   .sugar-image {
     width: 60px;
@@ -106,6 +106,7 @@ export default class UserInfo extends Vue {
     color: #fff;
     padding-left: 10px;
     float: left;
+    padding-top: 6px;
     span {
       display: block;
     }
