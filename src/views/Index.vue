@@ -30,7 +30,7 @@
         <sugar-tab-panel label="空间" name="zone">空间</sugar-tab-panel>
         <sugar-tab-panel label="消息" name="message">消息</sugar-tab-panel>
       </sugar-tab>
-      <SugarSearch v-else></SugarSearch>
+      <SugarSearch v-else :data="searchResult"></SugarSearch>
     </div>
     <!-- <router-link to="/sugar/user">to user</router-link>
     <router-view></router-view>-->
@@ -45,7 +45,6 @@ import SugarInput from '../components/SugarInput.vue';
 import SugarTab from '../components/SugarTab.vue';
 import SugarTabPanel from '../components/SugarTabPanel.vue';
 import SugarCollapse from '../components/SugarCollapse.vue';
-import SugarPanel from '../components/SugarPanel.vue';
 import SugarSearch from '../components/SugarSearch.vue';
 
 @Component({
@@ -56,7 +55,6 @@ import SugarSearch from '../components/SugarSearch.vue';
     SugarTab,
     SugarTabPanel,
     SugarCollapse,
-    SugarPanel,
     SugarSearch
   }
 })
@@ -66,6 +64,8 @@ export default class Index extends Vue {
     desc: '大梦谁先觉，平生我自知'
   };
 
+  // 搜索结果
+  private searchResult: [] = [];
   // 是否展示搜索结果
   private hasShowResult: boolean = false;
   // 搜索值
@@ -177,9 +177,30 @@ export default class Index extends Vue {
     sessionStorage.setItem('skin', className);
   }
 
+  // 搜索数据
+  private filterData() {
+    this.searchResult = [];
+    const cloneData = JSON.parse(JSON.stringify(this.friends));
+    cloneData.forEach((item: any) => {
+      item.friends.forEach((friends: any) => {
+        // 正则表达式匹配字段
+        const flagField = friends.name.replace(
+          new RegExp(this.searchValue as any, 'g'),
+          '<font style="color:#009BDB">' + this.searchValue + '</font>'
+        );
+        friends.flag = friends.name.indexOf(this.searchValue) > -1;
+        friends.name = flagField;
+        if (friends.flag) {
+          this.searchResult.push(friends as never);
+        }
+      });
+    });
+  }
+
   @Watch('searchValue')
   private showResult(val: string) {
     this.hasShowResult = val ? true : false;
+    this.filterData();
   }
 }
 </script>

@@ -42,7 +42,6 @@ export default class SugarCollapse extends Vue {
     this.data.forEach((element: any) => {
       this.$set(element, 'show', false);
     });
-    console.log('this.data', this.data);
   }
 
   // 显示隐藏分组

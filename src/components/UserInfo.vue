@@ -144,6 +144,7 @@ export default class UserInfo extends Vue {
     margin-top: 15px;
     border-radius: 3px;
     padding: 8px 0;
+    z-index: 9;
     ul,
     li {
       padding: 0;

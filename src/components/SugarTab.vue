@@ -78,20 +78,32 @@ export default class SugarTab extends Vue {
     text-align: center;
     position: relative;
     cursor: pointer;
-    &.active:after {
-      content: '';
-      border: 1px solid #bd1619;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin-bottom: -1px;
+    &.active > span {
+      position: relative;
+      display: inline-block;
+      &::after {
+        content: '';
+        border: 1px solid #bd1619;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0 -15px -1px -15px;
+      }
     }
+    // &.active:after {
+    //   content: '';
+    //   border: 1px solid #bd1619;
+    //   position: absolute;
+    //   bottom: 0;
+    //   left: 0;
+    //   right: 0;
+    //   margin-bottom: -1px;
+    // }
   }
 }
 .sugar-tab-panel {
   font-size: 13px;
-  // padding: 10px 15px;
 }
 
 ::-webkit-scrollbar {
